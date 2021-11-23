@@ -13,9 +13,11 @@ namespace TicketTrackingSystemApp.Models
         public string Description { get; set; }
         public Customer Customer { get; set; }
 
+        public string CustomerId { get; set; }
         public Employee Employee { get; set; }
+        public string EmployeeId { get; set; }
         public Manager Manager { get; set; }
-
+        public string ManagerId { get; set; }
         public short LevelOfDifficulty { get; set; }
 
         public string Priority { get; set; }
