@@ -2,32 +2,34 @@
 @model TicketTrackingSystemApp.Pages.Tickets.CreateTicketFormModel
 @{
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <div > @ViewData["Message"]</div>
+<div asp-validation-summary="All"></div>
+<form method="post">
 
-    <form method="post">
-        <label>Subject :</label>
-        <input style="width:450px;" class="w3-input w3-border w3-sand" asp-for="TicketInput.Subject" />
-        <span asp-validation-for="TicketInput.Subject"></span>
-        <br />
-        <br />
-        <br />
-        <label>Description:</label>
-        <input style="width:450px;" class="w3-input w3-border w3-sand" asp-for="TicketInput.Description" />
-        <span asp-validation-for="TicketInput.Description"></span>
-        <br />
-        <br />
-        <br />
-
-
-
-
-        <label>Customer :</label>
-        <select asp-for="selectedCustomerId" class="w3-input w3-border w3-sand" asp-items="Model.options" > <option>Lütfen bir company ismi seçiniz</option></select>
-
-        <br />
-        <br />
+    <label>Subject :</label>
+    <input style="width:450px;" class="w3-input w3-border w3-sand" asp-for="TicketInput.Subject" />
+    <span asp-validation-for="TicketInput.Subject"></span>
+    <br />
+    <br />
+    <br />
+    <label>Description:</label>
+    <input style="width:450px;" class="w3-input w3-border w3-sand" asp-for="TicketInput.Description" />
+    <span asp-validation-for="TicketInput.Description"></span>
+    <br />
+    <br />
+    <br />
 
 
-        <input type="submit" value="Save" class="w3-button w3-circle w3-teal"  asp-page-handler="Save" />
-    </form>
+
+
+    <label>Customer :</label>
+    <select asp-for="selectedCustomerId" style="width:350px;" w3-input w3-border w3-sand" asp-items="Model.options" ></select>
+    <span asp-validation-for="selectedCustomerId"></span>
+    <br />
+    <br />
+
+
+    <input style="float:right;" type="submit" value="Save" class="w3-button w3-circle w3-teal" asp-page-handler="Save" />
+</form>
 }
 

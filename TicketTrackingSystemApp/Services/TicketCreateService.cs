@@ -15,7 +15,8 @@ namespace TicketTrackingSystemApp.Services
         {
             _ticketRepository = ticketRepository;
         }
-        public void CreateTicket(Ticket ticket,string id)
+    
+        public void CreateTicket(Ticket ticket,string id,string Status)
         {
             if (string.IsNullOrEmpty(ticket.Subject))
             {
@@ -36,6 +37,10 @@ namespace TicketTrackingSystemApp.Services
             }
             
             ticket.CustomerId= id.ToString();
+
+            ticket.TicketStatus = Status;
+            
+            ticket.CreateDate =(DateTime)(DateTime.Now.Date);
             _ticketRepository.Add(ticket);
         }
     }

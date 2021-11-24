@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using TicketTrackingSystemApp.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TicketTrackingSystemApp.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace TicketTrackingSystemApp.Pages.Tickets
 {
@@ -36,7 +37,9 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         [BindProperty]
         public Ticket TicketInput { get; set; }
 
+
         [BindProperty]
+        [Required(ErrorMessage = "Lütfen customer alanýný boþ geçmeyiniz")]
         public string selectedCustomerId { get; set; }
 
         [BindProperty]
@@ -67,15 +70,16 @@ namespace TicketTrackingSystemApp.Pages.Tickets
             {
          
                 
-               TicketCreateService.CreateTicket(TicketInput,selectedCustomerId);
+               TicketCreateService.CreateTicket(TicketInput,selectedCustomerId,"Open");
                SmtpMailService.SendEmail("bitirmeprojesi55@gmail.com", email.Email, $"Ticketin takip numarasý : {TicketInput.Id} Baþarýlý bir þekilde olusturuldu","Yeni bir ticket oluþturuldu");
-           }
-           
-
+                ViewData["Message"] = "Baþarýlý bir þekilde kayýt oluþturuldu ve mail atýldý.";
+               
+            }
+         
         }
 
-   
 
      
+
     }
 }
