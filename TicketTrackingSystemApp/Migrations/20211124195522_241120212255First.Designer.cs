@@ -10,8 +10,8 @@ using TicketTrackingSystemApp.Models;
 namespace TicketTrackingSystemApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211123164550_23112021Fourt_Migration")]
-    partial class _23112021Fourt_Migration
+    [Migration("20211124195522_241120212255First")]
+    partial class _241120212255First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -101,13 +101,14 @@ namespace TicketTrackingSystemApp.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmployeeId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<short>("LevelOfDifficulty")
-                        .HasColumnType("smallint");
+                    b.Property<string>("LevelOfDifficulty")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ManagerId")
                         .HasColumnType("nvarchar(450)");
@@ -119,6 +120,7 @@ namespace TicketTrackingSystemApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TicketStatus")

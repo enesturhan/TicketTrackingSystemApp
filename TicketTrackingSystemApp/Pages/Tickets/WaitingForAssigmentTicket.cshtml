@@ -1,0 +1,59 @@
+﻿@page
+@model TicketTrackingSystemApp.Pages.Tickets.WaitingForAssigmentTicketModel
+@{
+}
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<div asp-validation-summary="All"></div>
+
+<form>
+    <table border="1" class="w3-table w3-red" width="100%">
+        <thead>
+            <tr>
+                <th>Subject </th>
+                <th>Description </th>
+                <th>Date </th>
+                <th>See Tech Details</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.TicketInput)
+            {
+
+            
+            <tr>
+                <td>
+                    @item.Subject
+
+                </td>
+                <td>
+                    @item.Description
+
+                </td>
+                <td>
+                    @item.LevelOfDifficulty
+
+                </td>
+                <td>
+                    @item.Priority
+
+                </td>
+                <td>
+                    <select asp-for="selectedEmployeeId" style="width:350px;" w3-input w3-border w3-sand" asp-items="Model.options"></select>
+                    <span asp-validation-for="selectedEmployeeId"></span>
+
+                </td>
+                <td>
+                    <button class="w3-button w3-circle w3-teal"> <a type="button" asp-for="TicketInput" asp-page="SetTechDetails" asp-route-id="@item.Id"> See Tech Details </a></button>
+
+
+
+                </td>
+            </tr>
+                
+            }
+
+        </tbody>
+    </table>
+</form>

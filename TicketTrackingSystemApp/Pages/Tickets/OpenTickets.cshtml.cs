@@ -22,10 +22,12 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         public List<Ticket> TicketInput { get; set; }
 
         public void OnGet()
+        
+        
         {
 
             TicketInput = _ticketRepository.List();
-        }
+            }
 
     }
 }

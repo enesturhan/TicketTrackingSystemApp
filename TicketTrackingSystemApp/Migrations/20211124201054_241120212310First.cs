@@ -2,7 +2,7 @@
 
 namespace TicketTrackingSystemApp.Migrations
 {
-    public partial class _231120211941Secon_Migration : Migration
+    public partial class _241120212310First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

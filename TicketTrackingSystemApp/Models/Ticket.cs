@@ -8,7 +8,7 @@ namespace TicketTrackingSystemApp.Models
 {
     public class Ticket
     {
-        public string  Id { get; set; } = Guid.NewGuid().ToString();
+        public string  Id { get; set; }
 
         [Required(ErrorMessage = "Subject kısmını boş geçmeyiniz")]
         public string Subject { get; set; }

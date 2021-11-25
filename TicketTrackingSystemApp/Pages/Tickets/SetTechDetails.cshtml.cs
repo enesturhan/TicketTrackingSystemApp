@@ -13,6 +13,12 @@ namespace TicketTrackingSystemApp.Pages.Tickets
     {
         [BindProperty]
         public string Id { get; set; }
+        [BindProperty]
+        public string LevelOfDiff { get; set; }
+
+        [BindProperty]
+        public string Prio { get; set; }
+
 
         private readonly TicketRepository _ticketRepository;
         private readonly CustomerRepository _customerRepository;
@@ -26,18 +32,26 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         public Ticket TicketInput { get; set; }
         public Customer Customer { get; set; }
 
+        
         public void OnGet(string? id)
         {
          
             Id = id;
             TicketInput = _ticketRepository.Find(Id);
             Customer = _customerRepository.Find(TicketInput.CustomerId);
+          
+            _ticketRepository.Update(TicketInput);
         }
-        public void OnPostSave()
+        public void OnPostSave(string? id, string customRadioInline, string customRadio)
         {
-           
-            
-             _ticketRepository.Update(TicketInput);
+            Id = id;
+            TicketInput = _ticketRepository.Find(id);
+            Customer = _customerRepository.Find(TicketInput.CustomerId);
+            LevelOfDiff = customRadio;
+            Prio = customRadioInline;
+            TicketInput.LevelOfDifficulty = LevelOfDiff;
+            TicketInput.Priority = Prio;
+            _ticketRepository.Update(TicketInput);
         }
     }
 }

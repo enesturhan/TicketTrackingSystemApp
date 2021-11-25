@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketTrackingSystemApp.Migrations
 {
-    public partial class _221120211851Ticket_Tracking_System_First : Migration
+    public partial class _241120212255First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,12 +60,12 @@ namespace TicketTrackingSystemApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    LevelOfDifficulty = table.Column<short>(type: "smallint", nullable: false),
+                    LevelOfDifficulty = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Priority = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
