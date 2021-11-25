@@ -22,15 +22,25 @@ namespace TicketTrackingSystemApp.Pages.Tickets
             _ticketRepository = ticketRepository;
             _employeeRepository = employeeRepository;
         }
-         [BindProperty]
-       
+        [BindProperty]
         public List<Ticket> TicketInput { get; set; }
 
+        [BindProperty]
+        public Ticket TicketIn { get; set; }
+
+        [BindProperty]
+        public string Id { get; set; }
+
+    
         public List<SelectListItem> options { get; set; }
 
         [BindProperty]
-        [Required(ErrorMessage = "Lütfen employee alanýný boþ geçmeyiniz")]
+      
         public string selectedEmployeeId { get; set; }
+
+        [BindProperty]
+
+        public string selected { get; set; }
 
         [BindProperty]
         public IEnumerable<Employee> newList { get; set; }
@@ -41,6 +51,7 @@ namespace TicketTrackingSystemApp.Pages.Tickets
 
             newList = _employeeRepository.List();
 
+            
 
             options = newList.Select(a =>
              new SelectListItem
@@ -48,6 +59,28 @@ namespace TicketTrackingSystemApp.Pages.Tickets
                  Value = a.Id.ToString(),
                  Text = a.Name
              }).ToList();
+        }
+        public void OnPostSave(string id)
+        {
+
+            Id = id;
+            TicketIn = _ticketRepository.Find(id);
+            var emp = _employeeRepository.Find(selectedEmployeeId);
+
+            TicketIn.EmployeeId = emp.Id;
+
+     
+            TicketIn.TicketStatus = "Assigned";
+            TicketIn.AssignedDate = DateTime.Now;
+            _ticketRepository.Update(TicketIn);
+
+            OnGet();
+          //if (ModelState.IsValid)
+        //   {
+
+
+       //    }
+
         }
 
     }

@@ -17,7 +17,7 @@ namespace TicketTrackingSystemApp.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-G9N5CHK\ENESSQL;Database=TicketFormApp;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=.;Database=TicketTrackingSystem;uid=sa;pwd=1234;MultipleActiveResultSets=true");
 
             base.OnConfiguring(optionsBuilder);
         }

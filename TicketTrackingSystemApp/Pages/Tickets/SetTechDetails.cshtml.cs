@@ -32,14 +32,20 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         public Ticket TicketInput { get; set; }
         public Customer Customer { get; set; }
 
+        public string customerName { get; set; }
         
         public void OnGet(string? id)
         {
+
          
             Id = id;
+
             TicketInput = _ticketRepository.Find(Id);
+       
             Customer = _customerRepository.Find(TicketInput.CustomerId);
-          
+
+            customerName = Customer.Name;
+              
             _ticketRepository.Update(TicketInput);
         }
         public void OnPostSave(string? id, string customRadioInline, string customRadio)
@@ -47,6 +53,9 @@ namespace TicketTrackingSystemApp.Pages.Tickets
             Id = id;
             TicketInput = _ticketRepository.Find(id);
             Customer = _customerRepository.Find(TicketInput.CustomerId);
+
+
+            TicketInput.TicketStatus = "WaitingForAssigment";
             LevelOfDiff = customRadio;
             Prio = customRadioInline;
             TicketInput.LevelOfDifficulty = LevelOfDiff;
