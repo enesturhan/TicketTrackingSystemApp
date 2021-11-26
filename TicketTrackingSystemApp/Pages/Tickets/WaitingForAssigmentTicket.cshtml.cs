@@ -8,19 +8,22 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TicketTrackingSystemApp.Models;
 using TicketTrackingSystemApp.Repositories;
+using TicketTrackingSystemApp.Services;
 
 namespace TicketTrackingSystemApp.Pages.Tickets
 {
     public class WaitingForAssigmentTicketModel : PageModel
     {
-        public TicketRepository _ticketRepository;
-        public EmployeeRepository _employeeRepository;
+        private readonly TicketRepository _ticketRepository;
+        private readonly EmployeeRepository _employeeRepository;
+        private readonly WaitingForAssigmentTicketService _waitingforAssigmentTicketService;
 
 
-        public WaitingForAssigmentTicketModel(TicketRepository ticketRepository,EmployeeRepository employeeRepository)
+        public WaitingForAssigmentTicketModel(TicketRepository ticketRepository,EmployeeRepository employeeRepository,WaitingForAssigmentTicketService waitingForAssigmentTicketService)
         {
             _ticketRepository = ticketRepository;
             _employeeRepository = employeeRepository;
+            _waitingforAssigmentTicketService = waitingForAssigmentTicketService;
         }
         [BindProperty]
         public List<Ticket> TicketInput { get; set; }
@@ -35,16 +38,11 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         public List<SelectListItem> options { get; set; }
 
         [BindProperty]
-      
         public string selectedEmployeeId { get; set; }
-
         [BindProperty]
-
         public string selected { get; set; }
-
         [BindProperty]
         public IEnumerable<Employee> newList { get; set; }
-
         public void OnGet()
         {
             TicketInput = _ticketRepository.List();
@@ -60,7 +58,7 @@ namespace TicketTrackingSystemApp.Pages.Tickets
                  Text = a.Name
              }).ToList();
         }
-        public void OnPostSave(string id)
+        public void OnPostSave(string id,Employee employee)
         {
 
             Id = id;
@@ -69,8 +67,8 @@ namespace TicketTrackingSystemApp.Pages.Tickets
 
             TicketIn.EmployeeId = emp.Id;
 
-     
-            TicketIn.TicketStatus = "Assigned";
+
+            _waitingforAssigmentTicketService.ValidateEmployee(TicketIn.EmployeeId, TicketIn.Id, employee);
             TicketIn.AssignedDate = DateTime.Now;
             _ticketRepository.Update(TicketIn);
 

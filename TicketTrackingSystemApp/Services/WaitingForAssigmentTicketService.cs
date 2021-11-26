@@ -11,13 +11,16 @@ namespace TicketTrackingSystemApp.Services
     {
 
         private readonly TicketRepository _ticketRepository;
+        private readonly EmployeeRepository _employeeRepository;
 
-        public WaitingForAssigmentTicketService(TicketRepository ticketRepository)
+        public WaitingForAssigmentTicketService(TicketRepository ticketRepository,EmployeeRepository employeeRepository)
         {
             _ticketRepository = ticketRepository;
 
         }
 
+        public List<Ticket> EmployeeWaitingList { get; set; } = new();
+        public List<Ticket> EmployeeDateList { get; set; } = new();
         public void ControlEmployeeTicket(Ticket ticket , string id)
         {
 
@@ -26,7 +29,7 @@ namespace TicketTrackingSystemApp.Services
            
         }
 
-        private void ControlDate() { }
+   
         private void Difficulty(Ticket ticket) {
 
             var yeni = _ticketRepository.List();
@@ -47,11 +50,55 @@ namespace TicketTrackingSystemApp.Services
         }
         private void PrioControl(Ticket ticket)
         {
-            var yeni = _ticketRepository.List();
-            var idDeger = _ticketRepository.Find(ticket.Id);
-            
+            var tickets = _ticketRepository.List().Where(x => x.EmployeeId == ticket.EmployeeId && x.TicketStatus == ticket.TicketStatus).ToList();
+
+            if(tickets.Any(x=> Convert.ToInt32(x.TicketStatus) >  Convert.ToInt32(ticket.Priority)))
+                {
+                throw new Exception("lüften önem sırası öncelikli olan bir ticket giriniz"); 
+
+            }
 
         }
+        public void ValidateEmployee (string EmpId,string ticketId,Employee employee)
+        {
+            var ticket = _ticketRepository.Find(ticketId);
+            var emp = _employeeRepository.Find(EmpId);
+
+            var assignedTicket = _ticketRepository.List();
+            assignedTicket = assignedTicket.Where(x => x.TicketStatus != "Open" && x.TicketStatus != "WaitingForAssigment").ToList();
+
+            assignedTicket = assignedTicket.Where(x => x.EmployeeId == employee.Id).ToList();
+
+            foreach (var Ticket in assignedTicket)
+            {
+                var assignDetail = _ticketRepository.Find(Ticket.Id);
+                EmployeeWaitingList.Add(assignDetail);
+            }
+            var ay = DateTime.Now.AddMonths(-1);
+
+            var DateDetail = EmployeeWaitingList.Where(x => x.AssignedDate >= ay && x.AssignedDate < DateTime.Now).ToList();
+
+            foreach (var item in EmployeeWaitingList)
+            {
+                EmployeeDateList.Add(assignedTicket.Find(x => x.Id == item.Id));
+
+            }
+
+            var employeeWorkingHour = EmployeeDateList.Sum(x => Convert.ToInt32(x.LevelOfDifficulty) * 8);
+
+            if (EmployeeDateList.Count(x=>Convert.ToInt32(x.Priority)==4 )>4)
+            {
+                throw new Exception(" DAHA FAZLA İS ATANAMAZ ");
+
+            }
+            ticket.Employee = employee;
+            ticket.TicketStatus = "Assigned";
+            _ticketRepository.Update(ticket);
+
+
+        }
+       
+        
        
     }
 }
