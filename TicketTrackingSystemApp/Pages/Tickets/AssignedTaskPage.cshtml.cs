@@ -31,7 +31,7 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         public string Id { get; set; }
 
         public Employee employee { get; set; }
-        public void OnGet(string id)
+        public void OnGet()
 
         {
           
@@ -46,6 +46,7 @@ namespace TicketTrackingSystemApp.Pages.Tickets
             Id = id;
             TicketIn = _ticketRepository.Find(Id);
             _ticketCreateService.SetTicketStatusClosed(TicketIn);
+            OnGet();
         }
 
     }

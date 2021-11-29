@@ -25,11 +25,6 @@ namespace TicketTrackingSystemApp.Services.Concrete
 
         public void SendTicketToReview(string Id);
 
-        public List<Ticket> OpenTickets();
-        public List<Ticket> ReadyForAssignmentTickets();
-        public List<Ticket> AssignedTickets();
-        public List<Ticket> ClosedTickets();
-        public List<Ticket> ReviewTickets();
-        public List<Ticket> CompletedTickets();
+       
     }
 }

@@ -7,6 +7,9 @@ using TicketTrackingSystemApp.Repositories;
 
 namespace TicketTrackingSystemApp.Services
 {
+    /// <summary>
+    /// ticket ilk olusturuldugunda devreye girer.
+    /// </summary>
     public class TicketCreateService
     {
         private readonly TicketRepository _ticketRepository;
@@ -45,28 +48,42 @@ namespace TicketTrackingSystemApp.Services
             _ticketRepository.Add(ticket);
 
         }
+        /// <summary>
+        /// diger metodlarda cagırılır ve statuse göre ekleme yapar.
+        /// </summary>
+        /// <param name="ticket"></param>
+        /// <param name="ticketStatus"></param>
         private void AddTicket(Ticket ticket, TicketStates ticketStatus)
         { 
             
+
             ticket.TicketStatus = ticketStatus.ToString();
             _ticketRepository.Update(ticket);
         }
 
-
+        /// <summary>
+        /// ticket statusu open olarak ayarlanır ve open date verilir
+        /// </summary>
+        /// <param name="ticket"></param>
         public void SetTicketStatusOpen(Ticket ticket)
         {
             ticket.CreateDate = DateTime.Now;
             AddTicket(ticket, TicketStates.Opened);
           
         }
-
+        /// <summary>
+        /// ticket statusu readyforassigment olarak tanımlanır  assigment date tanımlanır
+        /// </summary>
+        /// <param name="ticket"></param>
         public void SetTicketStatusReadyForAssignment(Ticket ticket)
 
-        {
-           
+        { 
             AddTicket(ticket, TicketStates.ReadyForAssignment);
         }
-
+        /// <summary>
+        /// ticket statusu assigned olarak tanımlanır assigneddate tanımlanır
+        /// </summary>
+        /// <param name="ticket"></param>
         public void SetTicketStatusAssigned(Ticket ticket)
         {
             ticket.AssignedDate = DateTime.Now;
@@ -74,7 +91,10 @@ namespace TicketTrackingSystemApp.Services
             
 
         }
-
+        /// <summary>
+        /// ticket statüsü close olarak tanımlanır closed date tanımlanır
+        /// </summary>
+        /// <param name="ticket"></param>
         public void SetTicketStatusClosed(Ticket ticket)
         {
             ticket.ClosedDate = DateTime.Now;
@@ -82,7 +102,10 @@ namespace TicketTrackingSystemApp.Services
           
 
         }
-
+        /// <summary>
+        /// ticket revieew olarak tanımlanır ve review data atanır.
+        /// </summary>
+        /// <param name="ticket"></param>
         public void SetTicketStatusReview(Ticket ticket)
         {
             ticket.ReviewDate = DateTime.Now;
