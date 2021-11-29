@@ -20,25 +20,25 @@
             @foreach (var item in Model.TicketInput)
             {
 
-                <tr>
-                    <td>
-                        @item.Subject
+            <tr>
+                <td>
+                    @item.Subject
 
-                    </td>
-                    <td>
-                        @item.Description
+                </td>
+                <td>
+                    @item.Description
 
-                    </td>
-                    <td>
-                        @item.EmployeeId
+                </td>
+                <td>
+                    @Model.EmployeeNames[Model.count++]
 
-                    </td>
-                    <td>
-                        @item.CompletedDate
+                </td>
+                <td>
+                    @item.CompletedDate.ToShortDateString
 
-                    </td>
-                
-                </tr>
+                </td>
+
+            </tr>
 
             }
 

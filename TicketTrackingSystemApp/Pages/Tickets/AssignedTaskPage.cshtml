@@ -23,29 +23,29 @@
             @foreach (var item in Model.TicketInput)
             {
 
-                <tr>
-                    <td>
-                        @item.Subject
+            <tr>
+                <td>
+                    @item.Subject
 
-                    </td>
-                    <td>
-                        @item.Description
+                </td>
+                <td>
+                    @item.Description
 
-                    </td>
-                    <td>
-                        @item.EmployeeId
+                </td>
+                <td>
+                    @Model.EmployeeNames[Model.count++]
 
-                    </td>
-                    <td>
-                        @item.AssignedDate
+                </td>
+                <td>
+                    @item.AssignedDate.ToShortDateString()
 
-                    </td>
-                    <td>
-                        <input style="float:right;" type="submit" value="Close" asp-route-id="@item.Id" class="w3-button w3-circle w3-teal" asp-page-handler="Save" />
+                </td>
+                <td>
+                    <input style="float:right;" type="submit" value="Close" asp-route-id="@item.Id" class="w3-button w3-circle w3-teal" asp-page-handler="Save" />
 
 
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
             }
 

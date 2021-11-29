@@ -29,7 +29,9 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         public List<Ticket> TicketInput { get; set; }
         public string employeeName { get; set; }
         public string Id { get; set; }
+        public int count { get; set; } = 0;
 
+        public List<string> EmployeeNames { get; set; } = new();
         public Employee employee { get; set; }
         public void OnGet()
 
@@ -38,7 +40,17 @@ namespace TicketTrackingSystemApp.Pages.Tickets
 
             TicketInput = _ticketRepository.List().FindAll(x => x.TicketStatus == TicketStates.Assigned.ToString());
 
-     
+            TicketInput = TicketInput.Where(x => x.TicketStatus == TicketStates.Assigned.ToString()).ToList();
+
+            var emps = TicketInput.Where(x => x.TicketStatus == TicketStates.Assigned.ToString()).Select(y => y.EmployeeId);
+
+            foreach (var item in emps)
+            {
+                employee = _employeeRepository.Find(item);
+                EmployeeNames.Add(employee.Name);
+
+            }
+
 
         }
         public void OnPostSave(string id)

@@ -21,7 +21,7 @@
 
             @foreach (var item in Model.TicketInput)
             {
-
+                
                 <tr>
                     <td>
                         @item.Subject
@@ -32,11 +32,11 @@
 
                     </td>
                     <td>
-                        @item.EmployeeId
+                        @Model.EmployeeNames[Model.count++]
 
                     </td>
                     <td>
-                        @item.EmployeeId
+                        @item.ReviewDate
 
                     </td>
                     <td>
