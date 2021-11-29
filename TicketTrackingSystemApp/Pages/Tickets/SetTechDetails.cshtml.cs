@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TicketTrackingSystemApp.Models;
 using TicketTrackingSystemApp.Repositories;
+using TicketTrackingSystemApp.Services;
 
 namespace TicketTrackingSystemApp.Pages.Tickets
 {
@@ -22,10 +23,12 @@ namespace TicketTrackingSystemApp.Pages.Tickets
 
         private readonly TicketRepository _ticketRepository;
         private readonly CustomerRepository _customerRepository;
-        public SetTechDetailsModel(TicketRepository ticketRepository,CustomerRepository customerRepository)
+        private readonly TicketCreateService _ticketCreateService;
+        public SetTechDetailsModel(TicketRepository ticketRepository,CustomerRepository customerRepository,TicketCreateService ticketCreateService)
         {
             _ticketRepository = ticketRepository;
             _customerRepository = customerRepository;
+            _ticketCreateService = ticketCreateService;
         }
 
         [BindProperty]
@@ -55,7 +58,7 @@ namespace TicketTrackingSystemApp.Pages.Tickets
             Customer = _customerRepository.Find(TicketInput.CustomerId);
 
 
-            TicketInput.TicketStatus = "WaitingForAssigment";
+            _ticketCreateService.SetTicketStatusReadyForAssignment(TicketInput);
             LevelOfDiff = customRadio;
             Prio = customRadioInline;
             TicketInput.LevelOfDifficulty = LevelOfDiff;

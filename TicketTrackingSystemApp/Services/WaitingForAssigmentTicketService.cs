@@ -7,6 +7,7 @@ using TicketTrackingSystemApp.Repositories;
 
 namespace TicketTrackingSystemApp.Services
 {
+
     public class WaitingForAssigmentTicketService
     {
 
@@ -59,15 +60,14 @@ namespace TicketTrackingSystemApp.Services
             }
 
         }
-        public void ValidateEmployee (string EmpId,string ticketId,Employee employee)
+        public void ValidateEmployee (string EmpId,string ticketId)
         {
             var ticket = _ticketRepository.Find(ticketId);
-            var emp = _employeeRepository.Find(EmpId);
-
+         
             var assignedTicket = _ticketRepository.List();
-            assignedTicket = assignedTicket.Where(x => x.TicketStatus != "Open" && x.TicketStatus != "WaitingForAssigment").ToList();
+            assignedTicket = assignedTicket.Where(x => x.TicketStatus != TicketStates.Opened.ToString() && x.TicketStatus == TicketStates.ReadyForAssignment.ToString()).ToList();
 
-            assignedTicket = assignedTicket.Where(x => x.EmployeeId == employee.Id).ToList();
+            assignedTicket = assignedTicket.Where(x => x.EmployeeId ==  EmpId.ToString()).ToList();
 
             foreach (var Ticket in assignedTicket)
             {
@@ -84,15 +84,17 @@ namespace TicketTrackingSystemApp.Services
 
             }
 
-            var employeeWorkingHour = EmployeeDateList.Sum(x => Convert.ToInt32(x.LevelOfDifficulty) * 8);
+            var employeeWorkingHour = EmployeeDateList.Sum(x => (Convert.ToInt32(5) * 8));
 
             if (EmployeeDateList.Count(x=>Convert.ToInt32(x.Priority)==4 )>4)
             {
                 throw new Exception(" DAHA FAZLA İS ATANAMAZ ");
 
             }
-            ticket.Employee = employee;
-            ticket.TicketStatus = "Assigned";
+
+            
+            ticket.TicketStatus = TicketStates.Assigned.ToString();
+            ticket.EmployeeId = EmpId;
             _ticketRepository.Update(ticket);
 
 

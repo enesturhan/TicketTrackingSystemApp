@@ -20,8 +20,6 @@
                 @foreach (var item in Model.TicketInput)
                 {
 
-                    @if (item.TicketStatus == "Open")
-                    {
                     <tr>
                         <td>
                            @item.Subject
@@ -42,7 +40,7 @@
 
                         </td>
                     </tr>
-                        }
+                        
                     }
 
             </tbody>

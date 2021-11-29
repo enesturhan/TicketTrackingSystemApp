@@ -17,13 +17,15 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         private readonly TicketRepository _ticketRepository;
         private readonly EmployeeRepository _employeeRepository;
         private readonly WaitingForAssigmentTicketService _waitingforAssigmentTicketService;
+        private readonly TicketCreateService _ticketCreateService;
 
-
-        public WaitingForAssigmentTicketModel(TicketRepository ticketRepository,EmployeeRepository employeeRepository,WaitingForAssigmentTicketService waitingForAssigmentTicketService)
+        public WaitingForAssigmentTicketModel(TicketRepository ticketRepository,EmployeeRepository employeeRepository,WaitingForAssigmentTicketService waitingForAssigmentTicketService,TicketCreateService ticketCreateService)
         {
             _ticketRepository = ticketRepository;
             _employeeRepository = employeeRepository;
             _waitingforAssigmentTicketService = waitingForAssigmentTicketService;
+            _ticketCreateService = ticketCreateService;
+
         }
         [BindProperty]
         public List<Ticket> TicketInput { get; set; }
@@ -45,7 +47,7 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         public IEnumerable<Employee> newList { get; set; }
         public void OnGet()
         {
-            TicketInput = _ticketRepository.List();
+            TicketInput = _ticketRepository.List().FindAll(x=>x.TicketStatus==TicketStates.ReadyForAssignment.ToString());
 
             newList = _employeeRepository.List();
 
@@ -58,19 +60,17 @@ namespace TicketTrackingSystemApp.Pages.Tickets
                  Text = a.Name
              }).ToList();
         }
-        public void OnPostSave(string id,Employee employee)
+        public void OnPostSave(string id)
         {
 
             Id = id;
             TicketIn = _ticketRepository.Find(id);
             var emp = _employeeRepository.Find(selectedEmployeeId);
-
             TicketIn.EmployeeId = emp.Id;
-
-
-            _waitingforAssigmentTicketService.ValidateEmployee(TicketIn.EmployeeId, TicketIn.Id, employee);
-            TicketIn.AssignedDate = DateTime.Now;
-            _ticketRepository.Update(TicketIn);
+            _waitingforAssigmentTicketService.ValidateEmployee(TicketIn.EmployeeId, TicketIn.Id);
+          
+            
+         
 
             OnGet();
           //if (ModelState.IsValid)

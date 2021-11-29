@@ -69,8 +69,8 @@ namespace TicketTrackingSystemApp.Pages.Tickets
             if (ModelState.IsValid)
             {
          
-               TicketInput.Id  = Guid.NewGuid().ToString();
-                TicketCreateService.CreateTicket(TicketInput,selectedCustomerId,"Open");
+             
+                TicketCreateService.CreateTicket(TicketInput,selectedCustomerId);
                SmtpMailService.SendEmail("bitirmeprojesi55@gmail.com", email.Email, $"Ticketin takip numarasý : {TicketInput.Id} Baþarýlý bir þekilde olusturuldu","Yeni bir ticket oluþturuldu");
                 ViewData["Message"] = "Baþarýlý bir þekilde kayýt oluþturuldu ve mail atýldý.";
                

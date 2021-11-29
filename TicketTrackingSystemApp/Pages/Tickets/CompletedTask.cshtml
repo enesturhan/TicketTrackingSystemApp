@@ -1,0 +1,47 @@
+﻿@page
+@model TicketTrackingSystemApp.Pages.CompletedTaskModel
+@{
+}
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <table border="1" class="w3-table w3-red" width="100%">
+        <thead>
+            <tr>
+                <th>Subject </th>
+                <th>Description </th>
+                <th>Employe Name </th>
+                <th>Completed Date</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.TicketInput)
+            {
+
+                <tr>
+                    <td>
+                        @item.Subject
+
+                    </td>
+                    <td>
+                        @item.Description
+
+                    </td>
+                    <td>
+                        @item.EmployeeId
+
+                    </td>
+                    <td>
+                        @item.CompletedDate
+
+                    </td>
+                
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+

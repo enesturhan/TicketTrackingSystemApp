@@ -1,0 +1,55 @@
+﻿@page
+@model TicketTrackingSystemApp.Pages.Tickets.AssignedTaskPageModel
+@{
+}
+
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+<form method="post">
+    <table border="1" class="w3-table w3-red" width="100%">
+        <thead>
+            <tr>
+                <th>Subject </th>
+                <th>Description </th>
+                <th>Employe Name </th>
+                <th>Assigned Date</th>
+                <th>Close Task</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.TicketInput)
+            {
+
+                <tr>
+                    <td>
+                        @item.Subject
+
+                    </td>
+                    <td>
+                        @item.Description
+
+                    </td>
+                    <td>
+                        @item.EmployeeId
+
+                    </td>
+                    <td>
+                        @item.AssignedDate
+
+                    </td>
+                    <td>
+                        <input style="float:right;" type="submit" value="Close" asp-route-id="@item.Id" class="w3-button w3-circle w3-teal" asp-page-handler="Save" />
+
+
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+</form>
+

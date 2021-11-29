@@ -33,6 +33,8 @@ namespace TicketTrackingSystemApp
             services.AddScoped<TicketRepository>();
             services.AddTransient<TicketCreateService>();
             services.AddTransient<SmtpMailService>();
+            services.AddTransient<WaitingForAssigmentTicketService>();
+          
             //services.AddTransient<ProductService>();
             //  services.AddTransient<CategoryService>();
         }

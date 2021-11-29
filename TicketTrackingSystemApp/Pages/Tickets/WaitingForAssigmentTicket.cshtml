@@ -25,8 +25,6 @@
 
 
 
-                @if (Model.TicketInput[i].TicketStatus == "WaitingForAssigment")
-                {
                     <tr>
                         <td>
                             @Model.TicketInput[i].Subject
@@ -52,11 +50,11 @@
                         <td>
                             
 
-                            <input style="float:right;" type="submit" asp-route-id="@Model.TicketInput[i].Id"  value="Employee" class="w3-button w3-circle w3-teal" asp-page-handler="Save"  />
+                            <input style="float:right;" type="submit" asp-route-id="@Model.TicketInput[i].Id" asp-route-index="@Model.Id" asp-page="AssignedTaskPage"  value="Employee" class="w3-button w3-circle w3-teal" asp-page-handler="Save"  />
 
                         </td>
                     </tr>
-                    }
+                    
                 }
 
             </tbody>

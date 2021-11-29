@@ -26,7 +26,7 @@ namespace TicketTrackingSystemApp.Pages.Tickets
         
         {
 
-            TicketInput = _ticketRepository.List();
+            TicketInput = _ticketRepository.List().FindAll(x=>x.TicketStatus==TicketStates.Opened.ToString());
             }
 
     }

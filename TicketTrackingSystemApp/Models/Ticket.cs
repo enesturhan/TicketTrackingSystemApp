@@ -6,6 +6,32 @@ using System.Threading.Tasks;
 
 namespace TicketTrackingSystemApp.Models
 {
+    public enum TicketStates
+    {
+        Opened = 1,
+        ReadyForAssignment = 2,
+        Assigned = 3,
+        Closed = 4,
+        Review = 5,
+        Completed = 6
+    }
+    public enum TicketDifficultyLevels
+    {
+        Simple = 1,
+        Easy = 2,
+        Medium = 3,
+        Hard = 4,
+        Extreme = 5
+    }
+
+    public enum TicketPriorityLevels
+    {
+        Low = 1,
+        Normal = 2,
+        Important = 3,
+        Critical = 4
+    }
+
     public class Ticket
     {
         public string  Id { get; set; }
