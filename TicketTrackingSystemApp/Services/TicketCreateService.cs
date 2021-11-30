@@ -19,7 +19,13 @@ namespace TicketTrackingSystemApp.Services
             _ticketRepository = ticketRepository;
             _smtpMailService = smtpMailService;
         }
-    
+    /// <summary>
+    /// 
+    /// ticket olusturulurken subject ve description validation kuralları ve statüsü ve date i open olarak atanır
+    /// 
+    /// </summary>
+    /// <param name="ticket"></param>
+    /// <param name="id"></param>
         public void CreateTicket(Ticket ticket,string id)
         {
             if (string.IsNullOrEmpty(ticket.Subject))
@@ -113,6 +119,11 @@ namespace TicketTrackingSystemApp.Services
         
 
         }
+        /// <summary>
+        /// statusu complete olarak atanır
+        /// datetime completed atanır.
+        /// </summary>
+        /// <param name="ticket"></param>
 
         public void SetTicketStatusCompleted(Ticket ticket)
         {

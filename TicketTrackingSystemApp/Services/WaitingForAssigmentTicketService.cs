@@ -91,8 +91,13 @@ namespace TicketTrackingSystemApp.Services
                 throw new Exception(" DAHA FAZLA İS ATANAMAZ ");
 
             }
+            if (EmployeeDateList.Count >= 3 || employeeWorkingHour > 160)
+            {
+                throw new Exception("çalışana bu ay içerisinde çok fazla iş yüklendi");
+            }
 
-            
+
+
             ticket.TicketStatus = TicketStates.Assigned.ToString();
             ticket.EmployeeId = EmpId;
             _ticketRepository.Update(ticket);

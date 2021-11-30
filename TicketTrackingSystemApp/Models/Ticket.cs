@@ -31,7 +31,9 @@ namespace TicketTrackingSystemApp.Models
         Important = 3,
         Critical = 4
     }
-
+    /// <summary>
+    /// Ticketın validation işlemleri
+    /// </summary>
     public class Ticket
     {
         public string  Id { get; set; }

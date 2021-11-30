@@ -43,5 +43,6 @@ namespace TicketTrackingSystemApp.Repositories
             _db.Tickets.Update(t);
             _db.SaveChanges();
         }
+
     }
 }
